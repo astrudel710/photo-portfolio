@@ -237,19 +237,8 @@ nav.scrolled{
 
 /* ── ABOUT ── */
 #about .inner{
-  display:grid;grid-template-columns:1fr 1.4fr;
-  gap:80px;align-items:start;
-}
-.about-img-wrap{position:sticky;top:calc(var(--nav-h) + 32px)}
-.about-img-placeholder{
-  width:100%;aspect-ratio:3/4;background:var(--bg3);
-  border:1px solid var(--border2);
-  display:flex;flex-direction:column;align-items:center;
-  justify-content:center;gap:14px;color:var(--muted);
-}
-.about-img-placeholder svg{opacity:.2;width:48px;height:48px}
-.about-img-placeholder span{
-  font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+  display:block;
+  max-width:750px;
 }
 .about-text{padding-top:8px}
 .about-kicker{
@@ -436,8 +425,6 @@ footer{
 /* ── RESPONSIVE ── */
 @media(max-width:1200px){.masonry{columns:2}}
 @media(max-width:1024px){
-  #about .inner{grid-template-columns:1fr;gap:48px}
-  .about-img-wrap{position:static;max-width:380px}
   /* #contact .inner{grid-template-columns:1fr;gap:56px}
   .photosets-grid{grid-template-columns:1fr 1fr} */
 }
@@ -457,7 +444,6 @@ footer{
   .lb-nav{display:none}
   .lb-img-wrap{padding:var(--nav-h) 16px 8px}
   .lb-foot{padding:12px 24px 24px}
-  #about .inner{grid-template-columns:1fr}
 }
 @media(max-width:480px){
   nav{padding:0 20px}
@@ -728,16 +714,6 @@ footer{
 <!-- ══ ABOUT ══ -->
 <section id="about" class="section-wrap">
   <div class="inner">
-    <div class="about-img-wrap reveal">
-      <div class="about-img-placeholder">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
-          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-          <circle cx="12" cy="7" r="4"/>
-        </svg>
-        <span>Profile photo</span>
-      </div>
-    </div>
-
     <div class="about-text reveal">
       <p class="about-kicker">About Me</p>
       <h2>The eye<br>behind <em>the lens</em></h2>
