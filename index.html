@@ -236,9 +236,15 @@ nav.scrolled{
 }
 
 /* ── ABOUT ── */
+#about{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
 #about .inner{
   display:block;
-  max-width:750px;
+  max-width:650px;
+  width:100%;
 }
 .about-text{padding-top:8px}
 .about-kicker{
@@ -339,12 +345,13 @@ nav.scrolled{
 
 /* ── FOOTER ── */
 footer{
-  padding:28px 52px;display:flex;align-items:center;
-  justify-content:space-between;gap:20px;
+  padding:32px 52px;display:flex;flex-direction:column;
+  align-items:center;gap:20px;
   border-top:1px solid var(--border);
+  text-align:center;
 }
-.footer-copy{font-size:.72rem;color:var(--muted)}
-.footer-links{display:flex;gap:28px}
+.footer-copy{font-size:.72rem;color:var(--muted);order:3}
+.footer-links{display:flex;gap:28px;order:1}
 .footer-links a{
   font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
   color:var(--muted);text-decoration:none;transition:color .2s;
@@ -357,6 +364,7 @@ footer{
   font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
   padding:8px 16px;cursor:pointer;border-radius:2px;
   text-decoration:none;transition:all .2s;
+  order:2;
 }
 .footer-back:hover{border-color:var(--muted2);color:var(--white)}
 
@@ -439,7 +447,7 @@ footer{
   .photosets-grid{grid-template-columns:1fr}
   .ps-card{aspect-ratio:4/3}
   .f-row{grid-template-columns:1fr}
-  footer{flex-direction:column;align-items:flex-start;gap:16px}
+  footer{padding:28px 24px}
   .footer-back{display:none}
   .lb-nav{display:none}
   .lb-img-wrap{padding:var(--nav-h) 16px 8px}
@@ -451,6 +459,7 @@ footer{
   #hero{padding:48px 20px}
   .hero-title{font-size:2.4rem}
   .about-stats{flex-wrap:wrap;gap:28px}
+  footer{padding:24px 20px}
 }
 </style>
 </head>
@@ -813,7 +822,6 @@ footer{
 
 <!-- ══ FOOTER ══ -->
 <footer>
-  <p class="footer-copy">© 2026 Antoine Strudel. All rights reserved.</p>
   <div class="footer-links">
     <a href="#work">Work</a>
     <a href="#photosets">Photosets</a>
@@ -826,6 +834,7 @@ footer{
     </svg>
     Top
   </a>
+  <p class="footer-copy">© 2026 Antoine Strudel. All rights reserved.</p>
 </footer>
 
 <!-- ══ LIGHTBOX ══ -->
