@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>[Your Name] — Photography</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0a;--bg2:#111;--bg3:#161616;
+  --border:#1f1f1f;--border2:#2a2a2a;
+  --text:#e8e8e8;--muted:#666;--muted2:#999;
+  --accent:#c9a96e;--white:#fff;
+  --nav-h:68px;
+  --ease:cubic-bezier(.25,.46,.45,.94);
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;height:var(--nav-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 52px;z-index:200;
+  background:rgba(10,10,10,0);
+  backdrop-filter:blur(0px);
+  transition:background .4s,backdrop-filter .4s,border-color .4s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{
+  background:rgba(10,10,10,.88);
+  backdrop-filter:blur(16px);
+  border-color:var(--border);
+}
+.nav-brand{
+  font-family:'Playfair Display',serif;font-size:1.2rem;
+  color:var(--white);text-decoration:none;letter-spacing:.06em;
+  transition:color .2s;
+}
+.nav-brand:hover{color:var(--accent)}
+.nav-links{display:flex;gap:40px;list-style:none}
+.nav-links a{
+  color:var(--muted2);text-decoration:none;font-size:.72rem;
+  letter-spacing:.16em;text-transform:uppercase;
+  transition:color .2s;
+}
+.nav-links a:hover{color:var(--white)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;
+  background:none;border:none;padding:6px}
+.hamburger span{display:block;width:22px;height:1px;background:var(--white);transition:all .3s}
+.hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
+.mobile-menu{
+  display:none;position:fixed;top:var(--nav-h);left:0;right:0;
+  background:rgba(10,10,10,.97);backdrop-filter:blur(20px);
+  padding:36px 40px;z-index:199;border-bottom:1px solid var(--border);
+  flex-direction:column;gap:28px;
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  color:var(--muted2);text-decoration:none;font-size:.85rem;
+  letter-spacing:.14em;text-transform:uppercase;transition:color .2s;
+}
+.mobile-menu a:hover{color:var(--white)}
+
+/* ── HERO ── */
+#hero{
+  position:relative;height:100vh;min-height:600px;
+  display:flex;align-items:flex-end;
+  padding:80px 52px;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;width:100%;height:100%;
+  object-fit:cover;object-position:center 40%;
+  transition:transform 8s var(--ease);
+}
+#hero:hover .hero-bg{transform:scale(1.03)}
+.hero-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,
+    rgba(0,0,0,.88) 0%,
+    rgba(0,0,0,.35) 45%,
+    rgba(0,0,0,.08) 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:700px}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;
+}
+.hero-eyebrow::before{
+  content:'';display:block;width:32px;height:1px;background:var(--accent);
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.6rem,6.5vw,5.4rem);
+  font-weight:400;line-height:1.05;
+  color:var(--white);margin-bottom:24px;
+}
+.hero-title em{font-style:italic;color:var(--accent)}
+.hero-desc{
+  font-size:1rem;color:rgba(255,255,255,.62);
+  line-height:1.8;max-width:500px;margin-bottom:40px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:12px;
+  color:var(--white);text-decoration:none;
+  font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;
+  padding-bottom:8px;border-bottom:1px solid rgba(255,255,255,.25);
+  transition:border-color .2s,color .2s;
+}
+.hero-cta:hover{color:var(--accent);border-color:var(--accent)}
+.hero-cta svg{transition:transform .3s}
+.hero-cta:hover svg{transform:translateX(4px)}
+.hero-scroll{
+  position:absolute;right:52px;bottom:48px;z-index:2;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.hero-scroll span{
+  font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);writing-mode:vertical-rl;
+}
+.hero-scroll-line{
+  width:1px;height:48px;background:linear-gradient(to bottom,rgba(255,255,255,.3),transparent);
+  animation:scrollLine 2s ease-in-out infinite;
+}
+@keyframes scrollLine{0%,100%{transform:scaleY(1);opacity:.6}50%{transform:scaleY(.5);opacity:.2}}
+
+/* ── SECTION SHELL ── */
+.section-wrap{padding:100px 52px}
+.section-wrap.alt{background:var(--bg2)}
+.section-head{
+  display:flex;align-items:center;gap:24px;margin-bottom:56px;
+}
+.section-head h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.6rem,3vw,2.4rem);
+  font-weight:400;color:var(--white);white-space:nowrap;
+}
+.section-line{flex:1;height:1px;background:var(--border)}
+.section-count{
+  font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);white-space:nowrap;
+}
+
+/* ── FILTER TABS ── */
+.filter-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:48px}
+.filter-btn{
+  background:none;border:1px solid var(--border2);
+  color:var(--muted);padding:9px 22px;
+  font-family:'Inter',sans-serif;font-size:.7rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  cursor:pointer;border-radius:2px;transition:all .2s;
+}
+.filter-btn:hover{border-color:var(--muted2);color:var(--muted2)}
+.filter-btn.active{
+  background:var(--white);border-color:var(--white);color:#000;
+}
+
+/* ── MASONRY GRID ── */
+.masonry{columns:3;column-gap:14px}
+.g-item{
+  break-inside:avoid;margin-bottom:14px;
+  position:relative;cursor:pointer;overflow:hidden;
+  border-radius:2px;
+}
+.g-item img{
+  width:100%;display:block;
+  transition:transform .6s var(--ease);
+}
+.g-item:hover img{transform:scale(1.05)}
+.g-caption{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:40px 16px 16px;
+  background:linear-gradient(to top,rgba(0,0,0,.82),transparent);
+  transform:translateY(100%);transition:transform .38s var(--ease);
+}
+.g-item:hover .g-caption{transform:translateY(0)}
+.g-caption h3{
+  font-family:'Playfair Display',serif;
+  font-size:.95rem;font-weight:400;color:var(--white);margin-bottom:4px;
+}
+.g-caption p{font-size:.7rem;color:rgba(255,255,255,.58);line-height:1.55}
+.g-item.hidden{display:none}
+
+/* ── PHOTOSETS ── */
+.photosets-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  grid-template-rows:auto auto;
+  gap:14px;
+}
+.ps-card{
+  position:relative;cursor:pointer;overflow:hidden;
+  border-radius:2px;aspect-ratio:1.05;
+}
+.ps-card:nth-child(1){grid-column:1;grid-row:1}
+.ps-card:nth-child(2){grid-column:2;grid-row:1}
+.ps-card:nth-child(3){grid-column:1;grid-row:2}
+.ps-card:nth-child(4){grid-column:2;grid-row:2}
+.ps-card img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform .6s var(--ease);
+}
+.ps-card:hover img{transform:scale(1.06)}
+.ps-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,0);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:28px;transition:background .35s;
+}
+.ps-card:hover .ps-overlay{background:rgba(0,0,0,.52)}
+.ps-text{
+  transform:translateY(12px);opacity:0;
+  transition:transform .35s var(--ease),opacity .35s;
+}
+.ps-card:hover .ps-text{transform:translateY(0);opacity:1}
+.ps-text h3{
+  font-family:'Playfair Display',serif;font-size:1.1rem;
+  font-weight:400;color:var(--white);margin-bottom:6px;
+}
+.ps-text p{font-size:.72rem;color:rgba(255,255,255,.62);line-height:1.55}
+.ps-badge{
+  position:absolute;top:14px;left:14px;
+  background:var(--accent);color:#000;
+  font-size:.6rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;padding:4px 10px;border-radius:2px;
+}
+
+/* ── ABOUT ── */
+#about .inner{
+  display:grid;grid-template-columns:1fr 1.4fr;
+  gap:80px;align-items:start;
+}
+.about-img-wrap{position:sticky;top:calc(var(--nav-h) + 32px)}
+.about-img-placeholder{
+  width:100%;aspect-ratio:3/4;background:var(--bg3);
+  border:1px solid var(--border2);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:14px;color:var(--muted);
+}
+.about-img-placeholder svg{opacity:.2;width:48px;height:48px}
+.about-img-placeholder span{
+  font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;
+}
+.about-text{padding-top:8px}
+.about-kicker{
+  display:flex;align-items:center;gap:14px;
+  font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:28px;
+}
+.about-kicker::before{content:'';width:28px;height:1px;background:var(--accent)}
+.about-text h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.8rem,3vw,3rem);
+  font-weight:400;color:var(--white);
+  line-height:1.15;margin-bottom:32px;
+}
+.about-text h2 em{font-style:italic;color:var(--accent)}
+.about-text p{
+  color:var(--muted2);line-height:1.9;font-size:.92rem;
+  margin-bottom:20px;
+}
+.about-text p:last-child{margin-bottom:0}
+.about-stats{
+  display:flex;gap:40px;margin-top:44px;
+  padding-top:36px;border-top:1px solid var(--border);
+}
+.stat-val{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;color:var(--white);display:block;margin-bottom:4px;
+}
+.stat-lbl{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+
+/* ── CONTACT ── */
+#contact .inner{
+  display:grid;grid-template-columns:1fr 1.2fr;
+  gap:80px;
+}
+.contact-info h3{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(1.5rem,2.5vw,2.2rem);
+  font-weight:400;color:var(--white);
+  line-height:1.2;margin-bottom:18px;
+}
+.contact-info>p{
+  color:var(--muted2);font-size:.9rem;line-height:1.75;margin-bottom:44px;
+}
+.c-links{display:flex;flex-direction:column}
+.c-link{
+  display:flex;align-items:center;gap:16px;
+  color:var(--muted2);text-decoration:none;
+  font-size:.85rem;padding:16px 0;
+  border-bottom:1px solid var(--border);
+  transition:color .2s;
+}
+.c-link:first-child{border-top:1px solid var(--border)}
+.c-link:hover{color:var(--white)}
+.c-link:hover .c-link-icon{color:var(--accent)}
+.c-link-lbl{
+  font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--accent);min-width:76px;
+}
+.c-link-icon{
+  margin-left:auto;color:var(--border2);
+  transition:color .2s,transform .2s;
+  font-size:.9rem;
+}
+.c-link:hover .c-link-icon{transform:translateX(4px)}
+
+/* form */
+.c-form{display:flex;flex-direction:column;gap:22px}
+.f-group{display:flex;flex-direction:column;gap:9px}
+.f-group label{
+  font-size:.65rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--muted);
+}
+.f-group input,.f-group textarea{
+  background:var(--bg3);border:1px solid var(--border2);
+  color:var(--text);padding:15px 18px;
+  font-family:'Inter',sans-serif;font-size:.88rem;font-weight:300;
+  border-radius:2px;outline:none;
+  transition:border-color .2s,background .2s;
+  resize:none;
+}
+.f-group input:focus,.f-group textarea:focus{
+  border-color:var(--accent);background:var(--bg2);
+}
+.f-group textarea{height:150px}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.btn-send{
+  background:var(--white);color:#000;border:none;
+  padding:16px 40px;font-family:'Inter',sans-serif;
+  font-size:.72rem;font-weight:600;letter-spacing:.14em;
+  text-transform:uppercase;cursor:pointer;align-self:flex-start;
+  border-radius:2px;transition:background .2s,color .2s;
+  display:flex;align-items:center;gap:10px;
+}
+.btn-send:hover{background:var(--accent);color:#000}
+.btn-send svg{transition:transform .3s}
+.btn-send:hover svg{transform:translateX(3px)}
+
+/* ── FOOTER ── */
+footer{
+  padding:28px 52px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;
+  border-top:1px solid var(--border);
+}
+.footer-copy{font-size:.72rem;color:var(--muted)}
+.footer-links{display:flex;gap:28px}
+.footer-links a{
+  font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;transition:color .2s;
+}
+.footer-links a:hover{color:var(--white)}
+.footer-back{
+  display:flex;align-items:center;gap:8px;
+  background:none;border:1px solid var(--border2);
+  color:var(--muted);font-family:'Inter',sans-serif;
+  font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;
+  padding:8px 16px;cursor:pointer;border-radius:2px;
+  text-decoration:none;transition:all .2s;
+}
+.footer-back:hover{border-color:var(--muted2);color:var(--white)}
+
+/* ── LIGHTBOX ── */
+#lb{
+  display:none;position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.97);
+  flex-direction:column;align-items:center;justify-content:center;
+  opacity:0;transition:opacity .3s;
+}
+#lb.open{display:flex}
+#lb.visible{opacity:1}
+.lb-close{
+  position:absolute;top:22px;right:28px;
+  background:none;border:1px solid var(--border2);color:var(--muted2);
+  width:40px;height:40px;border-radius:2px;cursor:pointer;
+  font-size:.9rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.lb-close:hover{border-color:var(--white);color:var(--white)}
+.lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:none;border:1px solid var(--border2);color:var(--white);
+  width:46px;height:46px;border-radius:2px;cursor:pointer;
+  font-size:1.3rem;display:flex;align-items:center;justify-content:center;
+  transition:all .2s;
+}
+.lb-nav:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.3)}
+#lb-prev{left:22px}
+#lb-next{right:22px}
+.lb-img-wrap{
+  flex:1;width:100%;display:flex;align-items:center;
+  justify-content:center;padding:var(--nav-h) 80px 16px;
+  overflow:hidden;
+}
+#lb-img{
+  max-width:100%;max-height:100%;
+  object-fit:contain;border-radius:2px;
+  display:block;
+  transition:opacity .25s;
+}
+#lb-img.fading{opacity:0}
+.lb-foot{
+  padding:16px 80px 28px;text-align:center;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+}
+#lb-title{
+  font-family:'Playfair Display',serif;
+  font-size:.98rem;color:var(--white);
+}
+#lb-desc{font-size:.72rem;color:var(--muted);max-width:500px}
+#lb-cnt{
+  position:absolute;bottom:28px;right:32px;
+  font-size:.65rem;color:var(--muted);letter-spacing:.12em;
+}
+.lb-bar{
+  position:absolute;top:0;left:0;height:2px;
+  background:var(--accent);
+  transition:width .3s;
+}
+
+/* ── FADE-IN ANIMATION ── */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1200px){.masonry{columns:2}}
+@media(max-width:1024px){
+  #about .inner{grid-template-columns:1fr;gap:48px}
+  .about-img-wrap{position:static;max-width:380px}
+  #contact .inner{grid-template-columns:1fr;gap:56px}
+  .photosets-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:768px){
+  nav{padding:0 24px}
+  .nav-links{display:none!important}
+  .hamburger{display:flex}
+  .section-wrap{padding:72px 24px}
+  #hero{padding:60px 24px}
+  .hero-scroll{display:none}
+  .masonry{columns:1}
+  .photosets-grid{grid-template-columns:1fr}
+  .ps-card{aspect-ratio:4/3}
+  .f-row{grid-template-columns:1fr}
+  footer{flex-direction:column;align-items:flex-start;gap:16px}
+  .footer-back{display:none}
+  .lb-nav{display:none}
+  .lb-img-wrap{padding:var(--nav-h) 16px 8px}
+  .lb-foot{padding:12px 24px 24px}
+  #about .inner{grid-template-columns:1fr}
+}
+@media(max-width:480px){
+  nav{padding:0 20px}
+  .section-wrap{padding:60px 20px}
+  #hero{padding:48px 20px}
+  .hero-title{font-size:2.4rem}
+  .about-stats{flex-wrap:wrap;gap:28px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav id="nav">
+  <a class="nav-brand" href="#hero">[Your Name]</a>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="nav-desktop">
+    <li><a href="#work">Work</a></li>
+    <li><a href="#photosets">Photosets</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#work" class="mob-link">Work</a>
+  <a href="#photosets" class="mob-link">Photosets</a>
+  <a href="#about" class="mob-link">About</a>
+  <a href="#contact" class="mob-link">Contact</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<section id="hero">
+  <img class="hero-bg" src="antelope-canyon.jpg" alt="Antelope Canyon" />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Photography Portfolio</p>
+    <h1 class="hero-title">
+      Finding light<br>in <em>every frame</em>
+    </h1>
+    <p class="hero-desc">
+      Capturing the raw beauty of nature, the vast expanse of landscapes,
+      and the quiet details others walk past.
+    </p>
+    <a class="hero-cta" href="#work">
+      View Work
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
+        <path d="M3 8h10M9 4l4 4-4 4"/>
+      </svg>
+    </a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══ WORK ══ -->
+<section id="work" class="section-wrap">
+  <div class="section-head reveal">
+    <h2>Work</h2>
+    <div class="section-line"></div>
+    <span class="section-count">15 Images</span>
+  </div>
+
+  <div class="filter-tabs reveal">
+    <button class="filter-btn active" data-f="all">All</button>
+    <button class="filter-btn" data-f="travel">Travel &amp; Landscape</button>
+    <button class="filter-btn" data-f="nature">Nature &amp; Macro</button>
+  </div>
+
+  <div class="masonry" id="gallery">
+
+    <!-- col naturally distributes by source order -->
+    <div class="g-item reveal" data-cat="travel"
+      data-src="swiss-alps-valley.jpg"
+      data-title="Swiss Alps Valley"
+      data-desc="A glacial valley in the Swiss Alps, where cascading waterfalls and ancient forests converge beneath snow-capped peaks.">
+      <img src="swiss-alps-valley.jpg" alt="Swiss Alps Valley" loading="lazy"/>
+      <div class="g-caption"><h3>Swiss Alps Valley</h3><p>Cascading waterfalls meet ancient forest beneath snow-capped peaks.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="nature"
+      data-src="burnet-moth.jpg"
+      data-title="Burnet Moth"
+      data-desc="A six-spot burnet moth rests on a wildflower, its vivid red and blue wings isolated against a monochrome world — nature's own pop art.">
+      <img src="burnet-moth.jpg" alt="Burnet Moth" loading="lazy"/>
+      <div class="g-caption"><h3>Burnet Moth</h3><p>Vivid wings isolated against a monochrome world — nature's pop art.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="iceland-reflection-pool.jpg"
+      data-title="Iceland Reflection Pool"
+      data-desc="Jagged volcanic formations frame a perfectly still pool, their dark silhouettes mirrored in Iceland's otherworldly silence.">
+      <img src="iceland-reflection-pool.jpg" alt="Iceland Reflection Pool" loading="lazy"/>
+      <div class="g-caption"><h3>Iceland Reflection Pool</h3><p>Volcanic formations mirrored in absolute stillness.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="paddleboard-sunset.jpg"
+      data-title="Paddleboard Sunset"
+      data-desc="Two silhouettes at rest on a paddleboard as crepuscular rays break through coastal clouds during the last light of the day.">
+      <img src="paddleboard-sunset.jpg" alt="Paddleboard Sunset" loading="lazy"/>
+      <div class="g-caption"><h3>Paddleboard Sunset</h3><p>Two silhouettes at rest as crepuscular rays pierce the dusk.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="nature"
+      data-src="white-begonias.jpg"
+      data-title="White Begonias"
+      data-desc="Delicate white begonia blooms catch the morning light, their golden stamen centres glowing softly against deep green foliage.">
+      <img src="white-begonias.jpg" alt="White Begonias" loading="lazy"/>
+      <div class="g-caption"><h3>White Begonias</h3><p>Delicate petals and golden centres catching the morning light.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="airplane-wing-sunrise.jpg"
+      data-title="Airplane Wing Sunrise"
+      data-desc="At 35,000 feet, the horizon burns in gradients of amber and deep blue as dawn ignites above an unbroken sea of clouds.">
+      <img src="airplane-wing-sunrise.jpg" alt="Airplane Wing Sunrise" loading="lazy"/>
+      <div class="g-caption"><h3>Airplane Wing Sunrise</h3><p>The horizon burns amber and blue above an unbroken cloudscape.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="iceland-wetlands-panorama.jpg"
+      data-title="Iceland Wetlands Panorama"
+      data-desc="An elevated view over Lake Mývatn's intricate wetlands, where water, moss, and tundra form a living tapestry stretching to distant snow-capped mountains.">
+      <img src="iceland-wetlands-panorama.jpg" alt="Iceland Wetlands Panorama" loading="lazy"/>
+      <div class="g-caption"><h3>Iceland Wetlands Panorama</h3><p>Water, moss, and tundra form a living tapestry near Lake Mývatn.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="nature"
+      data-src="sun-flare-trees.jpg"
+      data-title="Sun Flare Through Trees"
+      data-desc="A towering redwood splits a starburst of light, the lens capturing the raw, electric energy of a California morning sky.">
+      <img src="sun-flare-trees.jpg" alt="Sun Flare Through Trees" loading="lazy"/>
+      <div class="g-caption"><h3>Sun Flare Through Trees</h3><p>A redwood splits pure light — raw, radiant, unfiltered.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="iceland-lava-field.jpg"
+      data-title="Iceland Lava Field"
+      data-desc="A vast volcanic plateau of black lava and lichen stretches to the sea horizon beneath a brooding, storm-lit sky — Iceland at its most elemental.">
+      <img src="iceland-lava-field.jpg" alt="Iceland Lava Field" loading="lazy"/>
+      <div class="g-caption"><h3>Iceland Lava Field</h3><p>A volcanic plateau stretches to the sea — elemental and austere.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="nature"
+      data-src="blue-beetle-leaf.jpg"
+      data-title="Blue Beetle"
+      data-desc="An iridescent blue beetle pauses on a vivid green leaf, its metallic shell catching light like a tiny piece of hammered cobalt.">
+      <img src="blue-beetle-leaf.jpg" alt="Blue Beetle" loading="lazy"/>
+      <div class="g-caption"><h3>Blue Beetle</h3><p>An iridescent shell catching light like a living jewel.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="sepia-graffiti-cliff.jpg"
+      data-title="Graffiti Cliff"
+      data-desc="A sepia-toned cliff face layered with scrawled marks, both ancient and new — geology and humanity in quiet, unexpected conversation.">
+      <img src="sepia-graffiti-cliff.jpg" alt="Graffiti Cliff" loading="lazy"/>
+      <div class="g-caption"><h3>Graffiti Cliff</h3><p>Geology and humanity in quiet, layered conversation.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="other"
+      data-src="narrow-alley-path.jpg"
+      data-title="Narrow Alley Path"
+      data-desc="A vanishing-point composition between a chain-link fence and a building — shadows and geometry conspire to draw the eye forward.">
+      <img src="narrow-alley-path.jpg" alt="Narrow Alley Path" loading="lazy"/>
+      <div class="g-caption"><h3>Narrow Alley Path</h3><p>Shadows and geometry draw the eye toward the light beyond.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="other"
+      data-src="forced-perspective-car.jpg"
+      data-title="Forced Perspective"
+      data-desc="A playful forced-perspective shot pinching a silver SUV between two fingers — the mundane transformed by point of view.">
+      <img src="forced-perspective-car.jpg" alt="Forced Perspective" loading="lazy"/>
+      <div class="g-caption"><h3>Forced Perspective</h3><p>The mundane completely transformed by a change of viewpoint.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="other"
+      data-src="mustang-wheel.jpg"
+      data-title="Mustang 5.0"
+      data-desc="A close-up study of the blue Ford Mustang GT's wheel, red Brembo brake caliper, and Continental tyre — mechanical beauty in precise detail.">
+      <img src="mustang-wheel.jpg" alt="Mustang 5.0 Wheel" loading="lazy"/>
+      <div class="g-caption"><h3>Mustang 5.0</h3><p>Mechanical beauty in precise, red-and-silver detail.</p></div>
+    </div>
+
+    <div class="g-item reveal" data-cat="travel"
+      data-src="antelope-canyon.jpg"
+      data-title="Antelope Canyon"
+      data-desc="Light spills through the narrow crevices of Antelope Canyon, sculpting waves of sandstone into liquid, glowing forms.">
+      <img src="antelope-canyon.jpg" alt="Antelope Canyon" loading="lazy"/>
+      <div class="g-caption"><h3>Antelope Canyon</h3><p>Light sculpts waves of sandstone into liquid, glowing forms.</p></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ PHOTOSETS ══ -->
+<section id="photosets" class="section-wrap alt">
+  <div class="section-head reveal">
+    <h2>Photosets</h2>
+    <div class="section-line"></div>
+    <span class="section-count">4 Series</span>
+  </div>
+
+  <div class="photosets-grid">
+
+    <div class="ps-card reveal"
+      data-src="hydrangea-composite.jpg"
+      data-title="Hydrangea Spectrum"
+      data-desc="One bloom, four colour treatments — a single subject revealed through different lenses of light and processing to expose the multiplicity within.">
+      <span class="ps-badge">Series</span>
+      <img src="hydrangea-composite.jpg" alt="Hydrangea Spectrum" loading="lazy"/>
+      <div class="ps-overlay">
+        <div class="ps-text">
+          <h3>Hydrangea Spectrum</h3>
+          <p>One bloom, four colour treatments — one subject, infinite interpretations.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-card reveal"
+      data-src="rose-paris-composite.jpg"
+      data-title="Rose &amp; Paris"
+      data-desc="A red rose interleaved with the architecture and streets of Paris at dusk — two icons of beauty woven into a single image in vertical strips.">
+      <span class="ps-badge">Series</span>
+      <img src="rose-paris-composite.jpg" alt="Rose &amp; Paris" loading="lazy"/>
+      <div class="ps-overlay">
+        <div class="ps-text">
+          <h3>Rose &amp; Paris</h3>
+          <p>Two icons of beauty — flora and city — woven into one frame.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-card reveal"
+      data-src="burger-kaleidoscope.jpg"
+      data-title="Burger Kaleidoscope"
+      data-desc="Fast food transformed into sacred geometry — a playful kaleidoscopic study of the symmetry hidden within the most ordinary of everyday meals.">
+      <span class="ps-badge">Series</span>
+      <img src="burger-kaleidoscope.jpg" alt="Burger Kaleidoscope" loading="lazy"/>
+      <div class="ps-overlay">
+        <div class="ps-text">
+          <h3>Burger Kaleidoscope</h3>
+          <p>Sacred geometry hidden in the most ordinary of meals.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ps-card reveal"
+      data-src="light-painting.jpg"
+      data-title="Light Painting"
+      data-desc="A long-exposure traces the golden contours of a building through absolute darkness, redrawing architecture as luminous, hand-drawn lines.">
+      <span class="ps-badge">Series</span>
+      <img src="light-painting.jpg" alt="Light Painting" loading="lazy"/>
+      <div class="ps-overlay">
+        <div class="ps-text">
+          <h3>Light Painting</h3>
+          <p>Architecture redrawn in golden strokes through a long exposure.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ABOUT ══ -->
+<section id="about" class="section-wrap">
+  <div class="inner">
+    <div class="about-img-wrap reveal">
+      <div class="about-img-placeholder">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+        <span>Profile photo</span>
+      </div>
+    </div>
+
+    <div class="about-text reveal">
+      <p class="about-kicker">About Me</p>
+      <h2>The eye<br>behind <em>the lens</em></h2>
+      <p>
+        I'm a photographer driven by curiosity — from the sweeping volcanic plateaus of Iceland
+        to the intimate world of a beetle on a single leaf, I look for moments where light,
+        form, and meaning quietly align.
+      </p>
+      <p>
+        My work sits at the intersection of landscape and nature photography, with a tendency
+        toward the abstract and experimental. I believe the most compelling images live in
+        the quiet details others walk past — a shadow, a reflection, an iridescent wing.
+      </p>
+      <p>
+        Based in the San Francisco Bay Area. Available for commissions,
+        editorial work, and fine art prints worldwide.
+      </p>
+      <div class="about-stats">
+        <div>
+          <span class="stat-val">7+</span>
+          <span class="stat-lbl">Countries</span>
+        </div>
+        <div>
+          <span class="stat-val">15+</span>
+          <span class="stat-lbl">Years shooting</span>
+        </div>
+        <div>
+          <span class="stat-val">∞</span>
+          <span class="stat-lbl">Early mornings</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CONTACT ══ -->
+<section id="contact" class="section-wrap alt">
+  <div class="section-head reveal">
+    <h2>Get in Touch</h2>
+    <div class="section-line"></div>
+  </div>
+  <div class="inner">
+    <div class="contact-info reveal">
+      <h3>Let's create<br>something together.</h3>
+      <p>
+        Available for landscape commissions, editorial assignments,
+        nature &amp; wildlife projects, and fine art prints.
+        I'd love to hear about your vision.
+      </p>
+      <div class="c-links">
+        <a href="mailto:hello@yourname.com" class="c-link">
+          <span class="c-link-lbl">Email</span>
+          hello@yourname.com
+          <span class="c-link-icon">→</span>
+        </a>
+        <a href="https://instagram.com" class="c-link" target="_blank" rel="noopener">
+          <span class="c-link-lbl">Instagram</span>
+          @yourhandle
+          <span class="c-link-icon">→</span>
+        </a>
+        <a href="https://linkedin.com" class="c-link" target="_blank" rel="noopener">
+          <span class="c-link-lbl">LinkedIn</span>
+          linkedin.com/in/yourprofile
+          <span class="c-link-icon">→</span>
+        </a>
+      </div>
+    </div>
+
+    <form class="c-form reveal" onsubmit="return false">
+      <div class="f-row">
+        <div class="f-group">
+          <label for="f-name">Name</label>
+          <input type="text" id="f-name" placeholder="Your full name" autocomplete="name"/>
+        </div>
+        <div class="f-group">
+          <label for="f-email">Email</label>
+          <input type="email" id="f-email" placeholder="your@email.com" autocomplete="email"/>
+        </div>
+      </div>
+      <div class="f-group">
+        <label for="f-subject">Subject</label>
+        <input type="text" id="f-subject" placeholder="Commission, print, editorial…"/>
+      </div>
+      <div class="f-group">
+        <label for="f-msg">Message</label>
+        <textarea id="f-msg" placeholder="Tell me about your project…"></textarea>
+      </div>
+      <button class="btn-send" type="submit">
+        Send Message
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M1 7h12M8 3l5 4-5 4"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p class="footer-copy">© 2026 [Your Name]. All rights reserved.</p>
+  <div class="footer-links">
+    <a href="#work">Work</a>
+    <a href="#photosets">Photosets</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <a class="footer-back" href="#hero">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5">
+      <path d="M6 10V2M2 6l4-4 4 4"/>
+    </svg>
+    Top
+  </a>
+</footer>
+
+<!-- ══ LIGHTBOX ══ -->
+<div id="lb" role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-bar" id="lb-bar"></div>
+  <button class="lb-close" id="lb-close" aria-label="Close">✕</button>
+  <button class="lb-nav" id="lb-prev" aria-label="Previous">‹</button>
+  <button class="lb-nav" id="lb-next" aria-label="Next">›</button>
+  <div class="lb-img-wrap">
+    <img id="lb-img" src="" alt="" />
+  </div>
+  <div class="lb-foot">
+    <p id="lb-title"></p>
+    <p id="lb-desc"></p>
+  </div>
+  <span id="lb-cnt"></span>
+</div>
+
+<script>
+// ── NAV SCROLL
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>30),{passive:true});
+
+// ── HAMBURGER
+const hbg=document.getElementById('hamburger');
+const mmenu=document.getElementById('mobile-menu');
+hbg.addEventListener('click',()=>{
+  hbg.classList.toggle('open');
+  mmenu.classList.toggle('open');
+});
+mmenu.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{
+  hbg.classList.remove('open');mmenu.classList.remove('open');
+}));
+
+// ── FILTER TABS
+const ftabs=document.querySelectorAll('.filter-btn');
+const gitems=document.querySelectorAll('.g-item');
+ftabs.forEach(btn=>btn.addEventListener('click',()=>{
+  ftabs.forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const f=btn.dataset.f;
+  gitems.forEach(it=>{
+    const show=f==='all'||it.dataset.cat===f;
+    it.classList.toggle('hidden',!show);
+  });
+  // update count
+  const vis=document.querySelectorAll('.g-item:not(.hidden)').length;
+  document.querySelector('#work .section-count').textContent=vis+' Image'+(vis===1?'':'s');
+}));
+
+// ── LIGHTBOX
+const lb=document.getElementById('lb');
+const lbImg=document.getElementById('lb-img');
+const lbTitle=document.getElementById('lb-title');
+const lbDesc=document.getElementById('lb-desc');
+const lbCnt=document.getElementById('lb-cnt');
+const lbBar=document.getElementById('lb-bar');
+let pool=[],idx=0;
+
+function buildPool(){
+  return Array.from(document.querySelectorAll('.g-item:not(.hidden),.ps-card'));
+}
+
+function open(el){
+  pool=buildPool();
+  idx=pool.indexOf(el);
+  show(idx);
+  lb.classList.add('open');
+  requestAnimationFrame(()=>lb.classList.add('visible'));
+  document.body.style.overflow='hidden';
+}
+
+function show(i){
+  const el=pool[i];
+  lbImg.classList.add('fading');
+  setTimeout(()=>{
+    lbImg.src=el.dataset.src;
+    lbImg.alt=el.dataset.title||'';
+    lbTitle.textContent=el.dataset.title||'';
+    lbDesc.textContent=el.dataset.desc||'';
+    lbCnt.textContent=`${i+1} / ${pool.length}`;
+    lbBar.style.width=((i+1)/pool.length*100)+'%';
+    lbImg.classList.remove('fading');
+  },150);
+}
+
+function close(){
+  lb.classList.remove('visible');
+  setTimeout(()=>{lb.classList.remove('open');lbImg.src='';},300);
+  document.body.style.overflow='';
+}
+
+document.querySelectorAll('.g-item,.ps-card').forEach(el=>{
+  el.addEventListener('click',()=>open(el));
+  el.setAttribute('tabindex','0');
+  el.addEventListener('keydown',e=>{if(e.key==='Enter')open(el)});
+});
+
+document.getElementById('lb-close').addEventListener('click',close);
+document.getElementById('lb-prev').addEventListener('click',()=>{idx=(idx-1+pool.length)%pool.length;show(idx)});
+document.getElementById('lb-next').addEventListener('click',()=>{idx=(idx+1)%pool.length;show(idx)});
+
+lb.addEventListener('click',e=>{if(e.target===lb)close()});
+
+document.addEventListener('keydown',e=>{
+  if(!lb.classList.contains('open'))return;
+  if(e.key==='Escape')close();
+  if(e.key==='ArrowLeft'){idx=(idx-1+pool.length)%pool.length;show(idx)}
+  if(e.key==='ArrowRight'){idx=(idx+1)%pool.length;show(idx)}
+});
+
+// touch swipe
+let tx=0;
+lb.addEventListener('touchstart',e=>{tx=e.touches[0].clientX},{passive:true});
+lb.addEventListener('touchend',e=>{
+  const d=tx-e.changedTouches[0].clientX;
+  if(Math.abs(d)>50){d>0?(idx=(idx+1)%pool.length):(idx=(idx-1+pool.length)%pool.length);show(idx)}
+},{passive:true});
+
+// ── REVEAL ON SCROLL
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}});
+},{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
