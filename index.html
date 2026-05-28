@@ -194,8 +194,8 @@ nav.scrolled{
 /* ── PHOTOSETS ── */
 .photosets-grid{
   display:grid;
-  grid-template-columns:repeat(2,1fr);
-  grid-template-rows:auto auto;
+  grid-template-columns:repeat(3,1fr);
+  grid-template-rows:auto;
   gap:14px;
 }
 .ps-card{
@@ -204,8 +204,7 @@ nav.scrolled{
 }
 .ps-card:nth-child(1){grid-column:1;grid-row:1}
 .ps-card:nth-child(2){grid-column:2;grid-row:1}
-.ps-card:nth-child(3){grid-column:1;grid-row:2}
-.ps-card:nth-child(4){grid-column:2;grid-row:2}
+.ps-card:nth-child(3){grid-column:3;grid-row:1}
 .ps-card img{
   width:100%;height:100%;object-fit:cover;
   transition:transform .6s var(--ease);
@@ -656,63 +655,49 @@ footer{
   <div class="section-head reveal">
     <h2>Photosets</h2>
     <div class="section-line"></div>
-    <span class="section-count">4 Series</span>
+    <span class="section-count">1 Series</span>
   </div>
 
   <div class="photosets-grid">
 
     <div class="ps-card reveal"
-      data-src="hydrangea-composite.jpg"
-      data-title="Hydrangea Spectrum"
-      data-desc="One bloom, four colour treatments — a single subject revealed through different lenses of light and processing to expose the multiplicity within.">
+      data-src="2StrudelA_PhotoSet1.jpg"
+      data-title="Photoset - Part 1"
+      data-desc="The first image in a cohesive photoset series, capturing a unique perspective and moment in time.">
       <span class="ps-badge">Series</span>
-      <img src="hydrangea-composite.jpg" alt="Hydrangea Spectrum" loading="lazy"/>
+      <img src="2StrudelA_PhotoSet1.jpg" alt="Photoset - Part 1" loading="lazy"/>
       <div class="ps-overlay">
         <div class="ps-text">
-          <h3>Hydrangea Spectrum</h3>
-          <p>One bloom, four colour treatments — one subject, infinite interpretations.</p>
+          <h3>Photoset - Part 1</h3>
+          <p>The opening chapter of a unified visual narrative.</p>
         </div>
       </div>
     </div>
 
     <div class="ps-card reveal"
-      data-src="rose-paris-composite.jpg"
-      data-title="Rose &amp; Paris"
-      data-desc="A red rose interleaved with the architecture and streets of Paris at dusk — two icons of beauty woven into a single image in vertical strips.">
+      data-src="2StrudelA_PhotoSet2.jpg"
+      data-title="Photoset - Part 2"
+      data-desc="The second image in the photoset series, continuing the visual story with seamless connection to the overall theme.">
       <span class="ps-badge">Series</span>
-      <img src="rose-paris-composite.jpg" alt="Rose &amp; Paris" loading="lazy"/>
+      <img src="2StrudelA_PhotoSet2.jpg" alt="Photoset - Part 2" loading="lazy"/>
       <div class="ps-overlay">
         <div class="ps-text">
-          <h3>Rose &amp; Paris</h3>
-          <p>Two icons of beauty — flora and city — woven into one frame.</p>
+          <h3>Photoset - Part 2</h3>
+          <p>The continuation of a unified visual narrative.</p>
         </div>
       </div>
     </div>
 
     <div class="ps-card reveal"
-      data-src="burger-kaleidoscope.jpg"
-      data-title="Burger Kaleidoscope"
-      data-desc="Fast food transformed into sacred geometry — a playful kaleidoscopic study of the symmetry hidden within the most ordinary of everyday meals.">
+      data-src="2StrudelA_PhotoSet3.jpg"
+      data-title="Photoset - Part 3"
+      data-desc="The final image in the photoset series, bringing together all elements of the visual story into a complete composition.">
       <span class="ps-badge">Series</span>
-      <img src="burger-kaleidoscope.jpg" alt="Burger Kaleidoscope" loading="lazy"/>
+      <img src="2StrudelA_PhotoSet3.jpg" alt="Photoset - Part 3" loading="lazy"/>
       <div class="ps-overlay">
         <div class="ps-text">
-          <h3>Burger Kaleidoscope</h3>
-          <p>Sacred geometry hidden in the most ordinary of meals.</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="ps-card reveal"
-      data-src="light-painting.jpg"
-      data-title="Light Painting"
-      data-desc="A long-exposure traces the golden contours of a building through absolute darkness, redrawing architecture as luminous, hand-drawn lines.">
-      <span class="ps-badge">Series</span>
-      <img src="light-painting.jpg" alt="Light Painting" loading="lazy"/>
-      <div class="ps-overlay">
-        <div class="ps-text">
-          <h3>Light Painting</h3>
-          <p>Architecture redrawn in golden strokes through a long exposure.</p>
+          <h3>Photoset - Part 3</h3>
+          <p>The completion of a unified visual narrative.</p>
         </div>
       </div>
     </div>
